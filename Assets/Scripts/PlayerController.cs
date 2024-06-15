@@ -23,6 +23,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log($"{gameObject.name} collided with {other.gameObject.name}");
+        }
+    }
+
 
     private Vector3 GetRandomPositionOnNavMesh()
     {
