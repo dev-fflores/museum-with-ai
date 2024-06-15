@@ -2490,7 +2490,7 @@ GameObject:
   - component: {fileID: 5831841152245520436}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: IA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2579,6 +2579,7 @@ MonoBehaviour:
   agent: {fileID: 2328214665958911604}
   agentSpeed: 1
   isArrived: 0
+  priority: 1
 --- !u!195 &2328214665958911604
 NavMeshAgent:
   m_ObjectHideFlags: 0
