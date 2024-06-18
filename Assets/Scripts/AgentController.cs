@@ -12,6 +12,10 @@ public class AgentController : MonoBehaviour
     public float priority = 0;
 
     private Vector3 _destination;
+    
+    [SerializeField] private float _avoidanceDistance = 5f;
+    [SerializeField] private string _agentTag = "IA";
+    
     // Update is called once per frame
     void Update()
     {
@@ -24,7 +28,7 @@ public class AgentController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("IA"))
+        if (other.gameObject.CompareTag(_agentTag))
         {
             AgentController otherAgentController = other.gameObject.GetComponent<AgentController>();
             if (otherAgentController != null && otherAgentController.priority < this.priority)
@@ -61,9 +65,9 @@ public class AgentController : MonoBehaviour
     {
         // Raycast para detectar agentes cercanos
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 5f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, _avoidanceDistance))
         {
-            if (hit.collider.CompareTag("IA"))
+            if (hit.collider.CompareTag(_agentTag))
             {
                 // Calcula una dirección de evasión
                 Vector3 evasionDirection = Vector3.Cross(transform.up, hit.normal).normalized;
