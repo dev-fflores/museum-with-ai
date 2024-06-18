@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -44,11 +45,12 @@ public class AgentController : MonoBehaviour
     private Vector3 GetRandomPositionOnNavMesh()
     {
         float radius = 10.0f; // Define el radio dentro del cual se generará la posición aleatoria.
-        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
+        Vector3 randomDirection = Random.insideUnitSphere * (radius - margin);
         randomDirection += transform.position;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        if (NavMesh.SamplePosition(randomDirection, out hit, (radius - margin), 1))
         {
             finalPosition = hit.position;
         }
@@ -80,5 +82,21 @@ public class AgentController : MonoBehaviour
     public void SetPriority(float newPriority)
     {
         priority = newPriority;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * _avoidanceDistance);
+        
+        const float radiusDestination = 0.5f;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(_destination, radiusDestination);
+        
+        const float radiusCurrentPositionAgent = 0.5f;
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, radiusCurrentPositionAgent);
+        
+        
     }
 }
