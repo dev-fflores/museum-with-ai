@@ -40,7 +40,7 @@ namespace Managers
             return observationPoints[pIndex].IsAvailable;
         }
         
-        public Vector3 GetRandomObservationPoint()
+        public ObservationPoint GetRandomObservationPoint()
         {
             var availableObservationPoints = new List<ObservationPoint>();
             for (var i = 0; i < observationPoints.Count; i++)
@@ -51,7 +51,7 @@ namespace Managers
                 }
             }
             var randomIndex = Random.Range(0, availableObservationPoints.Count);
-            return availableObservationPoints[randomIndex].transform.position;
+            return availableObservationPoints[randomIndex];
         }
         
         private void SetPriorityToAgents(List<AgentController> pAgentsList)
