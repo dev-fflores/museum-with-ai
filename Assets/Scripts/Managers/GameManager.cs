@@ -26,7 +26,7 @@ namespace Managers
             for (var i = 0; i < observationPoints.Count; i++)
             {
                 observationPoints[i].Index = i;
-                Debug.Log("Index: " + observationPoints[i].Index + " Position: " + observationPoints[i].position);
+                // Debug.Log("Index: " + observationPoints[i].Index + " Position: " + observationPoints[i].position);
             }
         }
         
@@ -42,14 +42,7 @@ namespace Managers
         
         public ObservationPoint GetRandomObservationPoint()
         {
-            var availableObservationPoints = new List<ObservationPoint>();
-            for (var i = 0; i < observationPoints.Count; i++)
-            {
-                if (observationPoints[i].IsAvailable)
-                {
-                    availableObservationPoints.Add(observationPoints[i]);
-                }
-            }
+            var availableObservationPoints = observationPoints.Where(observationPoint => observationPoint.IsAvailable).ToList();
             var randomIndex = Random.Range(0, availableObservationPoints.Count);
             return availableObservationPoints[randomIndex];
         }

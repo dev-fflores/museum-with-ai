@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Panda;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -20,11 +22,11 @@ public class AgentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
-        {
-            MoveToRandomPosition();
-        }
-        AvoidObstacles();
+        // if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
+        // {
+        //     MoveToRandomPosition();
+        // }
+        // AvoidObstacles();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -36,31 +38,39 @@ public class AgentController : MonoBehaviour
             {
                 Debug.Log($"{gameObject.name} collided with {other.gameObject.name}");
                 // Cuando hay una colisión con otro jugador con menor prioridad, genera una nueva posición aleatoria y se mueve hacia ella.
-                otherAgentController.MoveToRandomPosition();
+                otherAgentController.GoToDestination();
             }
         }
     }
-
-
-    private Vector3 GetRandomPositionOnNavMesh()
+    [Panda.Task]
+    private void SelectDestinationPoint()
     {
         float radius = 10.0f; // Define el radio dentro del cual se generará la posición aleatoria.
         float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
         Vector3 randomDirection = Random.insideUnitSphere * (radius - margin);
         randomDirection += transform.position;
+        _destination = Vector3.zero;
         NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
         if (NavMesh.SamplePosition(randomDirection, out hit, (radius - margin), 1))
         {
-            finalPosition = hit.position;
+            _destination = hit.position;
+            Panda.Task.current.Succeed();
         }
-        return finalPosition;
     }
-    public void MoveToRandomPosition()
+    [Panda.Task]
+    private void GoToDestination()
     {
-        _destination = GetRandomPositionOnNavMesh();
+        // GetRandomPositionOnNavMesh();
         agent.SetDestination(_destination);
         agent.speed = agentSpeed;
+        AvoidObstacles();
+
+        // Si el agente llego a su destino, marcar como completada la tarea.
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
+        {
+            Panda.Task.current.Succeed();
+            Debug.Log("Agent arrived to destination");
+        }
     }
     
     private void AvoidObstacles()
