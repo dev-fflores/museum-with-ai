@@ -2485,9 +2485,10 @@ GameObject:
   - component: {fileID: 6399564129887915937}
   - component: {fileID: 1041668431998092555}
   - component: {fileID: 5480963271135326109}
-  - component: {fileID: 7424755080790344715}
   - component: {fileID: 2328214665958911604}
   - component: {fileID: 5831841152245520436}
+  - component: {fileID: 5380139374685835627}
+  - component: {fileID: 7424755080790344715}
   m_Layer: 0
   m_Name: Player
   m_TagString: IA
@@ -2563,23 +2564,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7424755080790344715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7634188908806482797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b8310c52d1d834693ed18f64cf0d44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  agent: {fileID: 2328214665958911604}
-  agentSpeed: 1
-  isArrived: 0
-  priority: 1
 --- !u!195 &2328214665958911604
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2629,6 +2613,46 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5380139374685835627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7634188908806482797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: fade47682ce7b3c4587df3700ab952e3, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
+--- !u!114 &7424755080790344715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7634188908806482797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b8310c52d1d834693ed18f64cf0d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  agent: {fileID: 2328214665958911604}
+  agentSpeed: 1
+  priority: 1
+  _avoidanceDistance: 5
+  _agentTag: IA
 --- !u!1 &7680057405733171706
 GameObject:
   m_ObjectHideFlags: 0
