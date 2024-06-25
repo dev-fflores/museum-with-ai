@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7738334575532854649}
   - component: {fileID: 8974022938977940186}
   - component: {fileID: 9213913803501629499}
+  - component: {fileID: 7609262373797147620}
   m_Layer: 0
   m_Name: Point_03
   m_TagString: ObservationPoint
@@ -121,6 +122,25 @@ MonoBehaviour:
   <Index>k__BackingField: 0
   <IsAvailable>k__BackingField: 1
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &7609262373797147620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206516587350274162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1624044864123484953
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +190,7 @@ GameObject:
   - component: {fileID: 6497239403007852375}
   - component: {fileID: 4240726661920987795}
   - component: {fileID: 2928951449537911082}
+  - component: {fileID: 7822634707536560798}
   m_Layer: 0
   m_Name: Point_02
   m_TagString: ObservationPoint
@@ -278,6 +299,25 @@ MonoBehaviour:
   <Index>k__BackingField: 0
   <IsAvailable>k__BackingField: 1
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &7822634707536560798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639010666229610351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &4937437117579418248
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +331,7 @@ GameObject:
   - component: {fileID: 532993880811224003}
   - component: {fileID: 996107132352822347}
   - component: {fileID: 2079769415431570330}
+  - component: {fileID: 2005293801811795338}
   m_Layer: 0
   m_Name: Point_01
   m_TagString: ObservationPoint
@@ -399,6 +440,25 @@ MonoBehaviour:
   <Index>k__BackingField: 0
   <IsAvailable>k__BackingField: 1
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &2005293801811795338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937437117579418248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &7911112498677989182
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +472,7 @@ GameObject:
   - component: {fileID: 4750872282357012114}
   - component: {fileID: 126440803620390318}
   - component: {fileID: 6044229288027420925}
+  - component: {fileID: 2562257078640387384}
   m_Layer: 0
   m_Name: Point_04
   m_TagString: ObservationPoint
@@ -520,6 +581,25 @@ MonoBehaviour:
   <Index>k__BackingField: 0
   <IsAvailable>k__BackingField: 1
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &2562257078640387384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7911112498677989182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &5608329802551872087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,8 +655,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1682282789023726, guid: 1609fc045200fb14294bfdd17cc92469, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2652211076074364828}
   m_SourcePrefab: {fileID: 100100000, guid: 1609fc045200fb14294bfdd17cc92469, type: 3}
+--- !u!1 &5607316042026739129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1682282789023726, guid: 1609fc045200fb14294bfdd17cc92469, type: 3}
+  m_PrefabInstance: {fileID: 5608329802551872087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &2652211076074364828
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5607316042026739129}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &5609973298841890895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4058038859397656, guid: 1609fc045200fb14294bfdd17cc92469, type: 3}

@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6399564129887915937, guid: cf29d8f76e9e09d42b5c323bf9f72e04, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3783789
+      value: -14.79
       objectReference: {fileID: 0}
     - target: {fileID: 6399564129887915937, guid: cf29d8f76e9e09d42b5c323bf9f72e04, type: 3}
       propertyPath: m_LocalPosition.y
@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6399564129887915937, guid: cf29d8f76e9e09d42b5c323bf9f72e04, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.703782
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 6399564129887915937, guid: cf29d8f76e9e09d42b5c323bf9f72e04, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1484,6 +1484,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3643674066823462242, guid: b7296d5515d23844b88668359d702859, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2755,6 +2759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentsList: []
   observationPoints: []
+  availableObservationPoints: []
   _oberservationPointTag: ObservationPoint
 --- !u!1001 &1842895661
 PrefabInstance:

@@ -1,4 +1,14 @@
 tree("Root")
-    sequence
-        SelectDestinationPoint
-        GoToDestination
+    fallback
+        sequence
+            WantToSeeStatue
+            SelectStatue
+            GoToStatue
+            sequence
+                ContinueWatchingStatue
+                Wait 8.0
+                FinishedWatchingStatue
+        sequence
+            SelectDestinationPoint
+            GoToDestination
+        

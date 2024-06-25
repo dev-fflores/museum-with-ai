@@ -9,7 +9,8 @@ namespace Managers
     public class GameManager : Singleton<GameManager>
     {
         [SerializeField] private List<AgentController> agentsList = new List<AgentController>();
-        [SerializeField] private List<ObservationPoint> observationPoints = new List<ObservationPoint>();
+        public List<ObservationPoint> observationPoints = new List<ObservationPoint>();
+        public List<ObservationPoint> availableObservationPoints = new List<ObservationPoint>();
         [SerializeField] private string _oberservationPointTag = "ObservationPoint";
         
         private void Start()
@@ -21,7 +22,7 @@ namespace Managers
             SetPriorityToAgents(agentsList);
         }
         
-        public void SetIndexObservationPoints()
+        private void SetIndexObservationPoints()
         {
             for (var i = 0; i < observationPoints.Count; i++)
             {
@@ -40,10 +41,17 @@ namespace Managers
             return observationPoints[pIndex].IsAvailable;
         }
         
-        public ObservationPoint GetRandomObservationPoint()
+        public ObservationPoint GetRandomAvailableObservationPoint()
         {
-            var availableObservationPoints = observationPoints.Where(observationPoint => observationPoint.IsAvailable).ToList();
+            availableObservationPoints = observationPoints.Where(observationPoint => observationPoint.IsAvailable).ToList();
+            
+            if (availableObservationPoints.Count == 0)
+            {
+                return null;
+            }
+            
             var randomIndex = Random.Range(0, availableObservationPoints.Count);
+            SetObservationPointAvailability(availableObservationPoints[randomIndex].Index, false);
             return availableObservationPoints[randomIndex];
         }
         
