@@ -60,6 +60,7 @@ namespace Managers
             
             var randomIndex = Random.Range(0, availableObservationPoints.Count);
             SetObservationPointAvailability(availableObservationPoints[randomIndex].Index, false);
+            // availableObservationPoints[randomIndex].particles.Stop();
             return availableObservationPoints[randomIndex];
         }
         

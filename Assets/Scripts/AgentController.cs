@@ -111,6 +111,7 @@ public class AgentController : MonoBehaviour
         // Si el agente llego a su destino, marcar como completada la tarea.
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
         {
+            GameManager.Instance.observationPoints[_statueTarget.Index].particles.Stop();
             Panda.Task.current.Succeed();
             Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
             animator.SetBool("isIdle", true);
@@ -212,6 +213,7 @@ public class AgentController : MonoBehaviour
         if (_statueTarget != null)
         {
             GameManager.Instance.observationPoints[_statueTarget.Index].IsAvailable = true;
+            GameManager.Instance.observationPoints[_statueTarget.Index].particles.Play();
             Debug.Log($"Statue {_statueTarget.Index} is available again");
         }
         

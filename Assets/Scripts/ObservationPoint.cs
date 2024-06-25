@@ -13,6 +13,14 @@ public class ObservationPoint : MonoBehaviour
 
     [field: SerializeField]
     public Vector3 position;
+    
+    [field:SerializeField]
+    public ParticleSystem particles;
+
+    private void Awake()
+    {
+        particles = GetComponent<ParticleSystem>();
+    }
 
     private void Start()
     {
