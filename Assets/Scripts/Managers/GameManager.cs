@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Extras;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -11,8 +13,14 @@ namespace Managers
         [SerializeField] private List<AgentController> agentsList = new List<AgentController>();
         public List<ObservationPoint> observationPoints = new List<ObservationPoint>();
         public List<ObservationPoint> availableObservationPoints = new List<ObservationPoint>();
+        public List<GameObject> statues = new List<GameObject>();
         [SerializeField] private string _oberservationPointTag = "ObservationPoint";
-        
+
+        private void Awake()
+        {
+            statues.AddRange(GameObject.FindGameObjectsWithTag("Statue"));
+        }
+
         private void Start()
         {
             agentsList.AddRange(FindObjectsOfType<AgentController>());

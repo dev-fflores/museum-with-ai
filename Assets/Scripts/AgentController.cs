@@ -114,6 +114,7 @@ public class AgentController : MonoBehaviour
             Panda.Task.current.Succeed();
             Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
             animator.SetBool("isIdle", true);
+            // transform.forward = GameManager.Instance.statues[_statueTarget.Index].transform.position - transform.position;
         }
     }
 
