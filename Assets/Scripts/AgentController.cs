@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Threading.Tasks;
 using Managers;
-using Panda;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class AgentController : MonoBehaviour
@@ -15,37 +12,30 @@ public class AgentController : MonoBehaviour
     public Animator animator;
     
     [Range(0f, 1f)]
-    public float priority = 0;
+    public float priority;
 
     private Vector3 _destination;
 
-    [SerializeField] private ObservationPoint _statueTarget;
+    [SerializeField] private ObservationPoint _observationPointTarget;
     
     [SerializeField] private bool _wantToSeeStatue = false;
     
     [SerializeField] private float _avoidanceDistance = 5f;
     [SerializeField] private string _agentTag = "IA";
-    
+    private static readonly int IsIdle = Animator.StringToHash("isIdle");
+
     // Update is called once per frame
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        _observationPointTarget = null;
     }
 
     private void Start()
     { 
         GetRandomDestinationInNavMesh();
-    }
-
-    void Update()
-    {
-        // if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
-        // {
-        //     MoveToRandomPosition();
-        // }
-        // AvoidObstacles();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -83,15 +73,15 @@ public class AgentController : MonoBehaviour
     private void SelectStatue()
     {
         // Seleccionar una estatua aleatoria
-        _statueTarget = GameManager.Instance.GetRandomAvailableObservationPoint();
+        _observationPointTarget = GameManager.Instance.GetRandomAvailableObservationPoint();
 
-        if (_statueTarget == null)
+        if (_observationPointTarget == null)
         {
             Panda.Task.current.Fail();
             return;
         }
         
-        _destination = _statueTarget.position;
+        _destination = _observationPointTarget.position;
         // Debug.Log($"Selected statue: {_statueTarget.Index} at position: {_destination}");
         Panda.Task.current.Succeed();
     }
@@ -99,22 +89,23 @@ public class AgentController : MonoBehaviour
     [Panda.Task]
     private void GoToStatue()
     {
-        animator.SetBool("isIdle", false);
+        animator.SetBool(IsIdle, false);
         AgentSetDestination(_destination);
         AvoidObstacles();
 
-        if (GameManager.Instance.availableObservationPoints.Count == 0)
+        if (GameManager.Instance.availableObservationPoints.Count == 0 || _observationPointTarget == null)
         {
             Panda.Task.current.Fail();
+            return;
         }
 
         // Si el agente llego a su destino, marcar como completada la tarea.
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
         {
-            GameManager.Instance.observationPoints[_statueTarget.Index].particles.Stop();
-            Panda.Task.current.Succeed();
             Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
-            animator.SetBool("isIdle", true);
+            GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
+            animator.SetBool(IsIdle, true);
+            Panda.Task.current.Succeed();
             // transform.forward = GameManager.Instance.statues[_statueTarget.Index].transform.position - transform.position;
         }
     }
@@ -128,6 +119,8 @@ public class AgentController : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} wants to continue watching the statue");
             _wantToSeeStatue = true;
+            // GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
+            GameManager.Instance.observationPoints[_observationPointTarget.Index].particles.Stop();
             Panda.Task.current.Succeed();
         }
         else
@@ -161,8 +154,9 @@ public class AgentController : MonoBehaviour
     private void FinishedWatchingStatue()
     {
         // Marcar la estatua como disponible
-        GameManager.Instance.SetObservationPointAvailability(_statueTarget.Index, true);
-        _statueTarget = null;
+        GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, true);
+        GameManager.Instance.observationPoints[_observationPointTarget.Index].particles.Play();
+        _observationPointTarget = null;
         _wantToSeeStatue = false;
         Panda.Task.current.Fail();
     }
@@ -171,10 +165,12 @@ public class AgentController : MonoBehaviour
     [Panda.Task]
     private void SelectDestinationPoint()
     {
-        animator.SetBool("isIdle", false);
+        animator.SetBool(IsIdle, false);
         GetRandomDestinationInNavMesh();
         Panda.Task.current.Succeed();
     }
+    
+    // TODO: Pensar quién debería colocar el flag de que el ObservationPoint esta disponible nuevamente.
 
     [Panda.Task]
     private void GoToDestination()
@@ -185,18 +181,18 @@ public class AgentController : MonoBehaviour
         // Si el agente llego a su destino, marcar como completada la tarea.
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
         {
-            var randomNumber = GetRandomNumber01();
+            var randomNumber = 1;
             
             if (randomNumber == 1)
             {
                 _wantToSeeStatue = true;
-                Panda.Task.current.Succeed();
+                Panda.Task.current.Fail();
                 // Debug.Log($"{gameObject.name} arrived at destination with position: {_destination}");
             }
             else
             {
                 _wantToSeeStatue = false;
-                Panda.Task.current.Fail();
+                Panda.Task.current.Succeed();
             }
         }
     }
@@ -210,20 +206,19 @@ public class AgentController : MonoBehaviour
 
     private void GetRandomDestinationInNavMesh()
     {
-        if (_statueTarget != null)
-        {
-            GameManager.Instance.observationPoints[_statueTarget.Index].IsAvailable = true;
-            GameManager.Instance.observationPoints[_statueTarget.Index].particles.Play();
-            Debug.Log($"Statue {_statueTarget.Index} is available again");
-        }
+        // if (_observationPointTarget != null)
+        // {
+        //     GameManager.Instance.observationPoints[_observationPointTarget.Index].IsAvailable = true;
+        //     Debug.Log($"Statue {_observationPointTarget.Index} is available again");
+        // }
         
         float radius = 10.0f; // Define el radio dentro del cual se generará la posición aleatoria.
-        float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
-        Vector3 randomDirection = Random.insideUnitSphere * (radius - margin);
+        // float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
+        Vector3 randomDirection = Random.insideUnitSphere * (radius);
         randomDirection += transform.position;
         // _destination = Vector3.zero;
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, (radius - margin), 1))
+        if (NavMesh.SamplePosition(randomDirection, out hit, (radius), 1))
         {
             _destination = hit.position;
         }
