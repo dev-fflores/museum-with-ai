@@ -6,23 +6,30 @@ using Random = UnityEngine.Random;
 
 public class AgentController : MonoBehaviour
 {
+    #region Properties
+    
+    private const int MAX_PRIORITY = 1;
+
     public Camera cam;
     public NavMeshAgent agent;
     public float agentSpeed = 1f;
     public Animator animator;
-    
-    [Range(0f, 1f)]
-    public float priority;
+
+    [Range(0f, 1f)] public float priority;
 
     private Vector3 _destination;
 
     [SerializeField] private ObservationPoint _observationPointTarget;
-    
+
     [SerializeField] private bool _wantToSeeStatue = false;
-    
+
     [SerializeField] private float _avoidanceDistance = 5f;
     [SerializeField] private string _agentTag = "IA";
+    [SerializeField] private bool _collisionWithAnotherAgent = false;
+    
     private static readonly int IsIdle = Animator.StringToHash("isIdle");
+
+    #endregion
 
     // Update is called once per frame
 
@@ -34,25 +41,11 @@ public class AgentController : MonoBehaviour
     }
 
     private void Start()
-    { 
+    {
         GetRandomDestinationInNavMesh();
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag(_agentTag))
-        {
-            AgentController otherAgentController = other.gameObject.GetComponent<AgentController>();
-            if (otherAgentController != null && otherAgentController.priority < this.priority)
-            {
-                // Debug.Log($"{gameObject.name} collided with {other.gameObject.name}");
-                // Cuando hay una colisión con otro jugador con menor prioridad, genera una nueva posición aleatoria y se mueve hacia ella.
-                // otherAgentController.GoToDestination();
-                
-                GetRandomDestinationInNavMesh();
-            }
-        }
-    }
+    #region Panda Behaviour Tree
 
     [Panda.Task]
     private void WantToSeeStatue()
@@ -62,13 +55,14 @@ public class AgentController : MonoBehaviour
         {
             // Debug.Log("I want to see a statue");
             Panda.Task.current.Succeed();
-        }else
+        }
+        else
         {
             // Debug.Log("I don't want to see a statue");
             Panda.Task.current.Fail();
         }
     }
-    
+
     [Panda.Task]
     private void SelectStatue()
     {
@@ -80,7 +74,7 @@ public class AgentController : MonoBehaviour
             Panda.Task.current.Fail();
             return;
         }
-        
+
         _destination = _observationPointTarget.position;
         // Debug.Log($"Selected statue: {_statueTarget.Index} at position: {_destination}");
         Panda.Task.current.Succeed();
@@ -90,8 +84,13 @@ public class AgentController : MonoBehaviour
     private void GoToStatue()
     {
         animator.SetBool(IsIdle, false);
-        AgentSetDestination(_destination);
-        AvoidObstacles();
+        agent.SetDestination(_destination);
+        // SetPriority(MAX_PRIORITY);
+
+        if (_collisionWithAnotherAgent)
+        {
+            
+        }
 
         if (GameManager.Instance.availableObservationPoints.Count == 0 || _observationPointTarget == null)
         {
@@ -100,9 +99,9 @@ public class AgentController : MonoBehaviour
         }
 
         // Si el agente llego a su destino, marcar como completada la tarea.
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
+        if (AgentArrivedAtDestination())
         {
-            Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
+            // Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
             GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
             animator.SetBool(IsIdle, true);
             Panda.Task.current.Succeed();
@@ -114,10 +113,10 @@ public class AgentController : MonoBehaviour
     private void ContinueWatchingStatue()
     {
         var randomNumber = GetRandomNumber01();
-        
+
         if (randomNumber == 1)
         {
-            Debug.Log($"{gameObject.name} wants to continue watching the statue");
+            // Debug.Log($"{gameObject.name} wants to continue watching the statue");
             _wantToSeeStatue = true;
             // GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
             GameManager.Instance.observationPoints[_observationPointTarget.Index].particles.Stop();
@@ -125,7 +124,7 @@ public class AgentController : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{gameObject.name} doesn't want to continue watching the statue");
+            // Debug.Log($"{gameObject.name} doesn't want to continue watching the statue");
             _wantToSeeStatue = false;
             Panda.Task.current.Fail();
         }
@@ -135,18 +134,18 @@ public class AgentController : MonoBehaviour
     [Panda.Task]
     private void WaitSeconds()
     {
-        Debug.Log($"{gameObject.name} is waiting");
+        // Debug.Log($"{gameObject.name} is waiting");
         // Contador de tiempo para esperar
         float waitTime = Random.Range(1, 5);
 
         float initialTime = 0f;
         initialTime += Time.deltaTime;
 
-        while(initialTime < waitTime)
+        while (initialTime < waitTime)
         {
             initialTime += Time.deltaTime;
         }
-        
+
         Panda.Task.current.Succeed();
     }
 
@@ -170,19 +169,18 @@ public class AgentController : MonoBehaviour
         Panda.Task.current.Succeed();
     }
     
-    // TODO: Pensar quién debería colocar el flag de que el ObservationPoint esta disponible nuevamente.
 
     [Panda.Task]
     private void GoToDestination()
     {
-        // GetRandomPositionOnNavMesh();
+        
         AgentSetDestination(_destination);
 
         // Si el agente llego a su destino, marcar como completada la tarea.
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
+        if (AgentArrivedAtDestination())
         {
             var randomNumber = 1;
-            
+
             if (randomNumber == 1)
             {
                 _wantToSeeStatue = true;
@@ -197,11 +195,23 @@ public class AgentController : MonoBehaviour
         }
     }
 
+
+    #endregion
+
+    #region Functions
+
     private void AgentSetDestination(Vector3 destination)
     {
+        if (_collisionWithAnotherAgent)
+        {
+            GetRandomDestinationInNavMesh();
+            _collisionWithAnotherAgent = false;
+        }
+        
         agent.SetDestination(destination);
         agent.speed = agentSpeed;
-        AvoidObstacles();
+        // AvoidObstacles();
+        // Debug.Log($"Agent {gameObject.name} is going to destination: {destination}");
     }
 
     private void GetRandomDestinationInNavMesh()
@@ -211,7 +221,7 @@ public class AgentController : MonoBehaviour
         //     GameManager.Instance.observationPoints[_observationPointTarget.Index].IsAvailable = true;
         //     Debug.Log($"Statue {_observationPointTarget.Index} is available again");
         // }
-        
+
         float radius = 10.0f; // Define el radio dentro del cual se generará la posición aleatoria.
         // float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
         Vector3 randomDirection = Random.insideUnitSphere * (radius);
@@ -223,12 +233,12 @@ public class AgentController : MonoBehaviour
             _destination = hit.position;
         }
     }
-    
+
     private int GetRandomNumber01()
     {
         return Random.Range(0, 2);
     }
-    
+
     private void AvoidObstacles()
     {
         // Raycast para detectar agentes cercanos
@@ -249,6 +259,38 @@ public class AgentController : MonoBehaviour
     {
         priority = newPriority;
     }
+    
+    public float GetPriority()
+    {
+        return priority;
+    }
+    
+    private bool AgentArrivedAtDestination()
+    {
+        return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath;
+    }
+
+    #endregion
+    
+    #region Debug
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag(_agentTag))
+        {
+            AgentController otherAgentController = other.gameObject.GetComponent<AgentController>();
+            // if (otherAgentController != null && otherAgentController.priority < this.priority)
+            if (otherAgentController != null && this.priority < otherAgentController.GetPriority())
+            {
+                Debug.Log($"{gameObject.name} collided with {other.gameObject.name}");
+                // Cuando hay una colisión con otro jugador con menor prioridad, genera una nueva posición aleatoria y se mueve hacia ella.
+                // otherAgentController.GoToDestination();
+
+                _collisionWithAnotherAgent = true;
+            }
+            
+        }
+    }
 
     private void OnDrawGizmos()
     {
@@ -262,7 +304,7 @@ public class AgentController : MonoBehaviour
         const float radiusCurrentPositionAgent = 0.5f;
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, radiusCurrentPositionAgent);
-        
-        
     }
+
+    #endregion
 }
