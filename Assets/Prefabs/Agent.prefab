@@ -2583,7 +2583,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &5831841152245520436
@@ -2650,9 +2650,13 @@ MonoBehaviour:
   cam: {fileID: 0}
   agent: {fileID: 2328214665958911604}
   agentSpeed: 1
+  animator: {fileID: 0}
   priority: 1
+  _observationPointTarget: {fileID: 0}
+  _wantToSeeStatue: 0
   _avoidanceDistance: 5
   _agentTag: IA
+  _collisionWithAnotherAgent: 0
 --- !u!1 &7680057405733171706
 GameObject:
   m_ObjectHideFlags: 0
