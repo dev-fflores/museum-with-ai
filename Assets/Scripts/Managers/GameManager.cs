@@ -39,16 +39,30 @@ namespace Managers
             }
         }
         
+        /// <summary>
+        /// Set the availability of an observation point
+        /// </summary>
+        /// <param name="pIndex"></param>
+        /// <param name="pAvailability"></param>
         public void SetObservationPointAvailability(int pIndex, bool pAvailability)
         {
             observationPoints[pIndex].IsAvailable = pAvailability;
         }
         
+        /// <summary>
+        /// Get the availability of an observation point
+        /// </summary>
+        /// <param name="pIndex"></param>
+        /// <returns></returns>
         public bool GetObservationPointAvailability(int pIndex)
         {
             return observationPoints[pIndex].IsAvailable;
         }
         
+        /// <summary>
+        /// Get a random available observation point
+        /// </summary>
+        /// <returns></returns>
         public ObservationPoint GetRandomAvailableObservationPoint()
         {
             availableObservationPoints = observationPoints.Where(observationPoint => observationPoint.IsAvailable).ToList();
@@ -64,6 +78,10 @@ namespace Managers
             return availableObservationPoints[randomIndex];
         }
         
+        /// <summary>
+        /// Set the priority to the agents
+        /// </summary>
+        /// <param name="pAgentsList"></param>
         private void SetPriorityToAgents(List<AgentController> pAgentsList)
         {
             for (var i = 0; i < pAgentsList.Count; i++)
