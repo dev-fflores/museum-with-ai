@@ -2583,7 +2583,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.1
+  m_BaseOffset: -0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &5831841152245520436
@@ -2611,7 +2611,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &5380139374685835627
 MonoBehaviour:
@@ -2647,7 +2647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b8310c52d1d834693ed18f64cf0d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   agent: {fileID: 2328214665958911604}
   agentSpeed: 1
   animator: {fileID: 0}
