@@ -18,13 +18,15 @@ namespace Managers
 
         private void Awake()
         {
-            statues.AddRange(GameObject.FindGameObjectsWithTag("Statue"));
+            // statues.AddRange(GameObject.FindGameObjectsWithTag("Statue"));
         }
 
         private void Start()
         {
             agentsList.AddRange(FindObjectsOfType<AgentController>());
             observationPoints.AddRange(GameObject.FindGameObjectsWithTag(_oberservationPointTag).Select(p => p.GetComponent<ObservationPoint>()));
+            availableObservationPoints.AddRange(observationPoints);
+            
             SetIndexObservationPoints();
             
             SetPriorityToAgents(agentsList);
@@ -73,7 +75,7 @@ namespace Managers
             }
             
             var randomIndex = Random.Range(0, availableObservationPoints.Count);
-            SetObservationPointAvailability(availableObservationPoints[randomIndex].Index, false);
+            // SetObservationPointAvailability(availableObservationPoints[randomIndex].Index, false);
             // availableObservationPoints[randomIndex].particles.Stop();
             return availableObservationPoints[randomIndex];
         }

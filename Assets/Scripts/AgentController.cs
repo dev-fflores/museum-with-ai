@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,8 +10,8 @@ public class AgentController : MonoBehaviour
     #region Properties
     
     private const int MAX_PRIORITY = 1;
+    private GameObject _anotherAgent;
 
-    public Camera cam;
     public NavMeshAgent agent;
     public float agentSpeed = 1f;
     public Animator animator;
@@ -45,7 +46,7 @@ public class AgentController : MonoBehaviour
         GetRandomDestinationInNavMesh();
     }
 
-    #region Panda Behaviour Tree
+    #region Behaviour Tree
 
     [Panda.Task]
     private void WantToSeeStatue()
@@ -76,6 +77,7 @@ public class AgentController : MonoBehaviour
         }
 
         _destination = _observationPointTarget.position;
+        // GameManager.Instance.observationPoints[_observationPointTarget.Index].IsSelected = true;
         // Debug.Log($"Selected statue: {_statueTarget.Index} at position: {_destination}");
         Panda.Task.current.Succeed();
     }
@@ -84,16 +86,15 @@ public class AgentController : MonoBehaviour
     private void GoToStatue()
     {
         animator.SetBool(IsIdle, false);
-        agent.SetDestination(_destination);
         // SetPriority(MAX_PRIORITY);
+        agent.SetDestination(_destination);
 
-        if (_collisionWithAnotherAgent)
-        {
-            
-        }
+        
 
-        if (GameManager.Instance.availableObservationPoints.Count == 0 || _observationPointTarget == null)
+        if (GameManager.Instance.availableObservationPoints.Count == 0 || _observationPointTarget == null || !_observationPointTarget.IsAvailable || IsCollidingWithAnotherAgent())
         {
+            _collisionWithAnotherAgent = false;
+            _anotherAgent = null;
             Panda.Task.current.Fail();
             return;
         }
@@ -101,11 +102,14 @@ public class AgentController : MonoBehaviour
         // Si el agente llego a su destino, marcar como completada la tarea.
         if (AgentArrivedAtDestination())
         {
-            // Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
+            Debug.Log($"{gameObject.name} arrived at statue with position: {_destination}");
             GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
             animator.SetBool(IsIdle, true);
             Panda.Task.current.Succeed();
-            // transform.forward = GameManager.Instance.statues[_statueTarget.Index].transform.position - transform.position;
+            // transform.forward = GameManager.Instance.observationPoints[_observationPointTarget.Index].transform.parent.position - transform.position;
+            transform.LookAt(GameManager.Instance.observationPoints[_observationPointTarget.Index].transform.parent.position);
+            
+            // Quiero que mi agente mire hacia el objeto padre de observationPoint, que se alinea su localPosition con la posición del observationPoint
         }
     }
 
@@ -118,7 +122,7 @@ public class AgentController : MonoBehaviour
         {
             // Debug.Log($"{gameObject.name} wants to continue watching the statue");
             _wantToSeeStatue = true;
-            // GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
+            GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, false);
             GameManager.Instance.observationPoints[_observationPointTarget.Index].particles.Stop();
             Panda.Task.current.Succeed();
         }
@@ -126,6 +130,10 @@ public class AgentController : MonoBehaviour
         {
             // Debug.Log($"{gameObject.name} doesn't want to continue watching the statue");
             _wantToSeeStatue = false;
+            GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, true);
+            // GameManager.Instance.observationPoints[_observationPointTarget.Index].IsSelected = false;
+            GameManager.Instance.observationPoints[_observationPointTarget.Index].particles.Play();
+            _observationPointTarget = null;
             Panda.Task.current.Fail();
         }
     }
@@ -199,6 +207,18 @@ public class AgentController : MonoBehaviour
     #endregion
 
     #region Functions
+    
+    private bool IsCollidingWithAnotherAgent()
+    {
+        if (_collisionWithAnotherAgent)
+        {
+            if (this.priority < _anotherAgent.GetComponent<AgentController>().GetPriority())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void AgentSetDestination(Vector3 destination)
     {
@@ -222,7 +242,7 @@ public class AgentController : MonoBehaviour
         //     Debug.Log($"Statue {_observationPointTarget.Index} is available again");
         // }
 
-        float radius = 10.0f; // Define el radio dentro del cual se generará la posición aleatoria.
+        float radius = agent.height * 2.0f;
         // float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
         Vector3 randomDirection = Random.insideUnitSphere * (radius);
         randomDirection += transform.position;
@@ -279,6 +299,7 @@ public class AgentController : MonoBehaviour
         if (other.gameObject.CompareTag(_agentTag))
         {
             AgentController otherAgentController = other.gameObject.GetComponent<AgentController>();
+            _anotherAgent = other.gameObject;
             // if (otherAgentController != null && otherAgentController.priority < this.priority)
             if (otherAgentController != null && this.priority < otherAgentController.GetPriority())
             {
@@ -289,6 +310,17 @@ public class AgentController : MonoBehaviour
                 _collisionWithAnotherAgent = true;
             }
             
+        }
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.CompareTag(_agentTag))
+        {
+            if (other.gameObject == _anotherAgent)
+            {
+                _collisionWithAnotherAgent = true;
+            }
         }
     }
 

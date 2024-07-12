@@ -10,6 +10,9 @@ public class ObservationPoint : MonoBehaviour
     public int Index { get; set; }
     [field: SerializeField]
     public bool IsAvailable { get; set; } = true;
+    
+    [field: SerializeField]
+    public bool IsSelected { get; set; } = false;
 
     [field: SerializeField]
     public Vector3 position;
