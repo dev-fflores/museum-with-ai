@@ -5447,6 +5447,7 @@ GameObject:
   - component: {fileID: 2187782757338733476}
   - component: {fileID: 7257168468471961078}
   - component: {fileID: 4605462960583657395}
+  - component: {fileID: 7257168468471961079}
   m_Layer: 0
   m_Name: izquierza.4
   m_TagString: Untagged
@@ -6043,6 +6044,7 @@ GameObject:
   - component: {fileID: 2998455555213647775}
   - component: {fileID: 2213111146712541889}
   - component: {fileID: 2466691661002123177}
+  - component: {fileID: 2998455555213647776}
   m_Layer: 0
   m_Name: Cubo.2
   m_TagString: Untagged
@@ -7100,6 +7102,7 @@ GameObject:
   - component: {fileID: 8898761044193912106}
   - component: {fileID: 437564045785950835}
   - component: {fileID: 1404398062049135824}
+  - component: {fileID: 8898761044193912107}
   m_Layer: 0
   m_Name: techo
   m_TagString: Untagged
@@ -9311,6 +9314,7 @@ GameObject:
   - component: {fileID: 4440890884318080546}
   - component: {fileID: 7880321701325608030}
   - component: {fileID: 3935006300341284935}
+  - component: {fileID: 7880321701325608031}
   m_Layer: 0
   m_Name: Cubo.4
   m_TagString: Untagged
@@ -10013,6 +10017,7 @@ GameObject:
   - component: {fileID: 8673404276301460693}
   - component: {fileID: 5318523684064956839}
   - component: {fileID: 1383732089254738797}
+  - component: {fileID: 8673404276301460694}
   m_Layer: 0
   m_Name: izquierza.5
   m_TagString: Untagged
@@ -10421,6 +10426,7 @@ GameObject:
   - component: {fileID: 3682813963288903310}
   - component: {fileID: 7442490365926282390}
   - component: {fileID: 40723003187281815}
+  - component: {fileID: 7442490365926282391}
   m_Layer: 0
   m_Name: izquierza.6
   m_TagString: Untagged
@@ -10946,6 +10952,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 733952696522594710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2998455555213647776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176688713676644153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!4 &2999006683959941078
 Transform:
   m_ObjectHideFlags: 0
@@ -11211,6 +11236,7 @@ GameObject:
   - component: {fileID: 7927278796508028487}
   - component: {fileID: 3007588111996371857}
   - component: {fileID: 1407975784227519250}
+  - component: {fileID: 7927278796508028488}
   m_Layer: 0
   m_Name: Cubo.004
   m_TagString: Untagged
@@ -13605,6 +13631,7 @@ GameObject:
   - component: {fileID: 8148511662301798884}
   - component: {fileID: 2170740677634048577}
   - component: {fileID: 4501120056505243311}
+  - component: {fileID: 8148511662301798885}
   m_Layer: 0
   m_Name: Techo_p
   m_TagString: Untagged
@@ -15046,6 +15073,7 @@ GameObject:
   - component: {fileID: 8913073128898077564}
   - component: {fileID: 1130978190450635635}
   - component: {fileID: 1801489091978332743}
+  - component: {fileID: 8913073128898077565}
   m_Layer: 0
   m_Name: Cubo.3
   m_TagString: Untagged
@@ -18389,6 +18417,7 @@ GameObject:
   - component: {fileID: 499944297310526289}
   - component: {fileID: 3787763423781710561}
   - component: {fileID: 1287001993576058393}
+  - component: {fileID: 5525269504582469192}
   m_Layer: 0
   m_Name: piso_principal
   m_TagString: Untagged
@@ -18396,6 +18425,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5525269504582469192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5525269504582469191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: c538d6cbe0f45d941b117affea46aa9c, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &5539429544535230773
 GameObject:
   m_ObjectHideFlags: 0
@@ -19307,6 +19367,7 @@ GameObject:
   - component: {fileID: 3216320917416905645}
   - component: {fileID: 1672290843895006342}
   - component: {fileID: 5403521874853979638}
+  - component: {fileID: 5828808173066118544}
   m_Layer: 0
   m_Name: techo.1
   m_TagString: Untagged
@@ -19314,6 +19375,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5828808173066118544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5828808173066118543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!33 &5829349141754323224
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20873,6 +20953,7 @@ GameObject:
   - component: {fileID: 1476202333551316582}
   - component: {fileID: 8974127464444736430}
   - component: {fileID: 6101632185081841841}
+  - component: {fileID: 8974127464444736431}
   m_Layer: 0
   m_Name: Cubo.1
   m_TagString: Untagged
@@ -21202,6 +21283,7 @@ GameObject:
   - component: {fileID: 7488439985068009581}
   - component: {fileID: 8231737921007311968}
   - component: {fileID: 730723240911248701}
+  - component: {fileID: 8231737921007311969}
   m_Layer: 0
   m_Name: Techo.1
   m_TagString: Untagged
@@ -23900,6 +23982,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926304777330957062}
   m_Mesh: {fileID: 4232844663255715464, guid: 3515beccbd4724e4d8a418e65c12082a, type: 3}
+--- !u!208 &7257168468471961079
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926304777330957062}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.097, y: 3.9680002, z: 2.467}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7260738190644643523
 GameObject:
   m_ObjectHideFlags: 0
@@ -24735,6 +24833,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2840314064955762477}
   m_Mesh: {fileID: 4406320278963138081, guid: 3515beccbd4724e4d8a418e65c12082a, type: 3}
+--- !u!208 &7442490365926282391
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2840314064955762477}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5, y: 0.35000002, z: 4}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7458316531973296344
 GameObject:
   m_ObjectHideFlags: 0
@@ -24864,6 +24978,7 @@ GameObject:
   - component: {fileID: 1488243952823820564}
   - component: {fileID: 1434741186098127209}
   - component: {fileID: 8344697141661887741}
+  - component: {fileID: 8344697141661887742}
   m_Layer: 0
   m_Name: Cubo.5
   m_TagString: Untagged
@@ -26061,6 +26176,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2311127320720491084}
   m_Mesh: {fileID: -3778813280607198963, guid: 3515beccbd4724e4d8a418e65c12082a, type: 3}
+--- !u!114 &7880321701325608031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311127320720491084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &7884404320672229094
 GameObject:
   m_ObjectHideFlags: 0
@@ -26219,6 +26353,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 733952696522594710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7927278796508028488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121123961891434756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!4 &7930325645011297963
 Transform:
   m_ObjectHideFlags: 0
@@ -26930,6 +27083,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450653472209164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &8148511662301798885
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909332840268716562}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 18.25, y: 0.15, z: 32.25}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!33 &8149732161391428495
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -27203,6 +27372,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6391033939347698243}
   m_Mesh: {fileID: 2947951931079832182, guid: 3515beccbd4724e4d8a418e65c12082a, type: 3}
+--- !u!208 &8231737921007311969
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391033939347698243}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 5, y: 0.15, z: 30.500002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!33 &8284543575163715240
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -27484,6 +27669,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8344697141661887742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7523603331663499390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!4 &8347280688751087287
 Transform:
   m_ObjectHideFlags: 0
@@ -28224,6 +28428,7 @@ GameObject:
   - component: {fileID: 3174000367308272323}
   - component: {fileID: 3653179872749274341}
   - component: {fileID: 5802252383506922458}
+  - component: {fileID: 8562407562282512600}
   m_Layer: 0
   m_Name: Techo
   m_TagString: Untagged
@@ -28231,6 +28436,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!208 &8562407562282512600
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8562407562282512599}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 20, y: 0.15, z: 30.500002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!23 &8566612404410291290
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -28596,6 +28817,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5153449036451024290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8673404276301460694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601579287780896391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!33 &8676321902179709226
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -29210,6 +29450,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4728453450085857301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8898761044193912107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487043363913249259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!4 &8912418237648956006
 Transform:
   m_ObjectHideFlags: 0
@@ -29260,6 +29519,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 733952696522594710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8913073128898077565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451731837108028466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!23 &8919114169047649685
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29434,6 +29712,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6322717632272627665}
   m_Mesh: {fileID: 6565530567759910965, guid: 3515beccbd4724e4d8a418e65c12082a, type: 3}
+--- !u!114 &8974127464444736431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322717632272627665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!23 &8984761614227701873
 MeshRenderer:
   m_ObjectHideFlags: 0
