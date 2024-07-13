@@ -9,6 +9,9 @@ public class AgentController : MonoBehaviour
 {
     #region Properties
     
+    public bool isCommonAgent = false;
+    public float travelRadius = 10f;
+    
     private const int MAX_PRIORITY = 1;
     private GameObject _anotherAgent;
 
@@ -44,6 +47,8 @@ public class AgentController : MonoBehaviour
     private void Start()
     {
         GetRandomDestinationInNavMesh();
+
+        travelRadius = (isCommonAgent) ? 10f : 4f;
     }
 
     #region Behaviour Tree
@@ -51,6 +56,12 @@ public class AgentController : MonoBehaviour
     [Panda.Task]
     private void WantToSeeStatue()
     {
+        if (isCommonAgent)
+        {
+            _wantToSeeStatue = false;
+            Panda.Task.current.Fail();
+            return;
+        }
 
         if (_wantToSeeStatue)
         {
@@ -161,6 +172,14 @@ public class AgentController : MonoBehaviour
     private void FinishedWatchingStatue()
     {
         // Marcar la estatua como disponible
+        var randomNumber = GetRandomNumber01();
+
+        if (randomNumber == 0)
+        {
+            Panda.Task.current.Succeed();
+            return;
+        }
+
         GameManager.Instance.SetObservationPointAvailability(_observationPointTarget.Index, true);
         GameManager.Instance.observationPoints[_observationPointTarget.Index].particles.Play();
         _observationPointTarget = null;
@@ -187,7 +206,7 @@ public class AgentController : MonoBehaviour
         // Si el agente llego a su destino, marcar como completada la tarea.
         if (AgentArrivedAtDestination())
         {
-            var randomNumber = 1;
+            var randomNumber = GetRandomNumber01();
 
             if (randomNumber == 1)
             {
@@ -242,7 +261,7 @@ public class AgentController : MonoBehaviour
         //     Debug.Log($"Statue {_observationPointTarget.Index} is available again");
         // }
 
-        float radius = agent.height * 2.0f;
+        float radius = travelRadius;
         // float margin = 1.0f; // Define el margen que quieres mantener desde el borde del NavMesh.
         Vector3 randomDirection = Random.insideUnitSphere * (radius);
         randomDirection += transform.position;
